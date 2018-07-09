@@ -1,0 +1,151 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Hatena Notation API
+  description: |
+    MarkdownまたはAsciiDocをはてな記法に変換するAPIです
+  termsOfService: 'https://github.com/c18t/hatena-notation-api'
+  contact:
+    name: API Issues
+    url: 'https://github.com/c18t/hatena-notation-api/issues'
+  license:
+    name: MIT License
+    url: 'https://github.com/c18t/hatena-notation-api/blob/master/LICENSE'
+host: api.chimata.org
+#host: localhost:8000
+basePath: /hatena_notation/v1
+schemes:
+  - https
+paths:
+  /from/markdown:
+    post:
+      summary: Markdownをはてな記法に変換します。
+      operationId: convertFromMarkdown
+      consumes:
+        - text/plain
+        - text/markdown
+      produces:
+        - text/plain
+      parameters:
+        - name: markdown
+          in: body
+          description: Markdownテキストを送ってください。
+          required: true
+          schema:
+            type: string
+            example: |
+              # 見出し1
+              ## 見出し2
+              ### 見出し3
+              <h2 id="name">名前付き見出し</h2>
+              
+              段落
+              
+              改行  
+              改行
+              
+              - 箇条書きリスト
+                  - 箇条書きリスト
+                      - 箇条書きリスト
+              
+              1. 順序リスト
+                  1. 順序リスト
+                      1. 順序リスト
+      responses:
+        '200':
+          description: 正常に変換が終了しました。
+          schema:
+            type: string
+            example: |
+              * 見出し1
+
+              ** 見出し2
+
+              *** 見出し3
+
+              <h2 id=name>名前付き見出し</h2>
+              段落
+              改行<br>改行
+
+              - 箇条書きリスト
+              -- 箇条書きリスト
+              --- 箇条書きリスト
+
+              + 順序リスト
+              ++ 順序リスト
+              +++ 順序リスト
+        400:
+          description: 変換中にエラーが発生しました。
+          schema:
+            type: string
+            example: 変換中にエラーが発生しました。
+  /from/asciidoc:
+    post:
+      summary: AsciiDocをはてな記法に変換します。
+      operationId: convertFromAsciiDoc
+      consumes:
+        - text/plain
+        - text/asciidoc
+      produces:
+        - text/plain
+      parameters:
+        - name: asciidoc
+          in: body
+          description: AsciiDocテキストを送ってください。
+          required: true
+          schema:
+            type: string
+            example: |
+              == 見出し1
+              === 見出し2
+              ==== 見出し3
+              <h2 id=\"name\">名前付き見出し</h2>
+
+              段落
+
+              改行 +
+              改行
+
+              .-
+              * 箇条書きリスト
+              ** 箇条書きリスト
+              *** 箇条書きリスト
+
+              .-
+              . 順序リスト
+              .. 順序リスト
+              ... 順序リスト
+      responses:
+        '200':
+          description: 正常に変換が終了しました。
+          schema:
+            type: string
+            example: |
+              * 見出し1
+
+              ** 見出し2
+
+              *** 見出し3
+
+              <h2 id="name">名前付き見出し</h2>
+              段落
+              改行<br>改行
+
+              - 箇条書きリスト
+              -- 箇条書きリスト
+              --- 箇条書きリスト
+
+              + 順序リスト
+              ++ 順序リスト
+              +++ 順序リスト
+        default:
+          description: 変換中にエラーが発生しました。
+          schema:
+            type: string
+security:
+  - api_key: []
+securityDefinitions:
+  rk:
+    type: apiKey
+    name: X-Authorization
+    in: header

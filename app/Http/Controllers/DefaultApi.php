@@ -46,7 +46,7 @@ class DefaultApi extends Controller
         // 一時ファイルに対しpandocを実行して結果を取得
         $result = 0;
         $path = stream_get_meta_data($file)['uri'];
-        $command = 'asciidoctor -b docbook5 -o - '.$path.' | ~/.local/bin/pandoc -f docbook -t hatena';
+        $command = 'asciidoctor -b docbook5 -o - '.$path.' | ./bin/pandoc -f docbook -t hatena';
         exec($command, $hatena_lines, $result);
         fclose($file);
 
@@ -82,7 +82,7 @@ class DefaultApi extends Controller
         // 一時ファイルに対しpandocを実行して結果を取得
         $result = 0;
         $path = stream_get_meta_data($file)['uri'];
-        $command = '~/.local/bin/pandoc -f markdown_github -t hatena '.$path;
+        $command = './bin/pandoc -f markdown_github -t hatena '.$path;
         exec($command, $hatena_lines, $result);
         fclose($file);
 

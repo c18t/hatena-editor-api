@@ -4,7 +4,7 @@ FROM alpine
 ENV APP_DIR /var/opt/app
 
 # Listen port(CMD実行時に参照)
-ENV PORT 8000
+ENV PORT 80
 
 # 作業ディレクトリ
 WORKDIR ${APP_DIR}

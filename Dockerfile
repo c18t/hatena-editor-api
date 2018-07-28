@@ -27,6 +27,7 @@ RUN set -x && \
     php-openssl \
     php-phar \
     php-dom && \
+    ruby && \
     rm /var/cache/apk/* && \
 : "AsciiDoctorをインストール(RDocで失敗するけど無視)" && \
   gem install asciidoctor; \

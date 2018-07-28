@@ -60,7 +60,7 @@ class DefaultApi extends Controller
             $response_text = 'エラーが発生しました。pandoc error code: '.$result;
         }
 
-        return response($response_text);
+        return response($response_text)->header('Access-Control-Allow-Origin', '*');
     }
     /**
      * Operation convertFromMarkdown
@@ -96,6 +96,6 @@ class DefaultApi extends Controller
             $response_text = 'エラーが発生しました。pandoc error code: '.$result;
         }
 
-        return response($response_text);
+        return response($response_text)->header('Access-Control-Allow-Origin', '*');;
     }
 }

@@ -26,7 +26,7 @@ RUN set -x && \
     php-mbstring \
     php-openssl \
     php-phar \
-    php-dom && \
+    php-dom \
     ruby && \
     rm /var/cache/apk/* && \
 : "AsciiDoctorをインストール(RDocで失敗するけど無視)" && \

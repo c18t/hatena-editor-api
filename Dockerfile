@@ -1,4 +1,4 @@
-FROM alpine
+FROM frolvlad/alpine-glibc
 
 # アプリフォルダ
 ENV APP_DIR /var/opt/app
@@ -17,8 +17,8 @@ RUN set -x && \
   apk update && \
   apk --update add \
     bash \
-    wget \
     curl \
+    file \
     git \
     php \
     php-curl \
@@ -29,6 +29,9 @@ RUN set -x && \
     php-dom \
     ruby && \
     rm /var/cache/apk/* && \
+: "pandocをインストール" && \
+  cp ${APP_DIR}/bin/pandoc /usr/local/bin/ && \
+  chmod +x /usr/local/bin/pandoc && \
 : "AsciiDoctorをインストール(RDocで失敗するけど無視)" && \
   gem install asciidoctor; \
 : "Composerをインストール" && \
